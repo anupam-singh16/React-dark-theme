@@ -1,21 +1,23 @@
 import React from "react";
 import Card from "../components/card";
 import UseFetch from "../customHooks/apiCalls";
+import Header from "../components/Header";
 
 const Home = () => {
   const { data } = UseFetch();
   console.log(data, "data");
   return (
     <div>
-      {data?.map((item) => {
-        return (
-          <div key={item.id}>
+      <Header />
+      <div className="grid grid-cols-4 gap-4">
+        {data?.map((item) => {
+          return (
             <Card item={item} />
-            {/* <p>{item?.name}</p>
-            <img src={item?.image} /> */}
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
+
+    
     </div>
   );
 };
