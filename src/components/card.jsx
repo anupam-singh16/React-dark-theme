@@ -7,7 +7,6 @@ const Card = ({ item }) => {
   const backgroundImageUrl = item?.image;
 
   const addToCart = (id) => {
-    // alert(id);
     setId(id);
     setAddCart(addCart + 1);
   };
