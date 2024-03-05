@@ -6,6 +6,9 @@ import { Button } from "@mui/material";
 import Svg from "../components/comingSoon.svg";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Toaster from '../components/Toaster'
 
 export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
   const [formData, setFormData] = useState({
@@ -13,13 +16,38 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
     email: "",
     password: "",
   });
+
   const [step, setStep] = useState(0);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   console.log(formData, "formData");
   const [enable, setEnable] = useState(false);
 
   const handleModeChange = () => {
     setEnable(!enable);
+  };
+  const validation1 = () => {
+    let valid = false;
+
+    if (formData.name && formData.email && formData.password) {
+      setError("");
+      valid = true;
+    } else {
+      setError("this field is required");
+    }
+    return valid;
+  };
+
+  const validation2 = () => {
+    let valid = false;
+
+    if (formData.name && formData.password) {
+      setError("");
+      valid = true;
+    } else {
+      setError("this field is required");
+    }
+    return valid;
   };
 
   const handleChange = (e) => {
@@ -32,16 +60,31 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
   };
 
   const hanldeSubmit = () => {
+    
+    if (!validation1()) {
+      return;
+    }
+    setError("");
     localStorage.setItem("formData", JSON.stringify(formData));
-    setStep(2);
+    toast.success("SingUp Success", {
+      position: "bottom-left",
+    });
+    navigate("/Home");
+   
+   
   };
 
   const handleLogin = () => {
+    if (!validation2()) {
+      return;
+    }
+    setError("");
     const LS = JSON.parse(localStorage.getItem("formData"));
     if (LS.email === formData.email && LS.password === formData.password) {
-      alert("login success");
+      // <Toaster/>
       navigate("/Home");
     } else {
+      toast.success("Login success");
       alert("invalid password");
     }
   };
@@ -49,14 +92,16 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
   return (
     <div>
       <Header />
+
       <div
         style={{
           display: "flex",
           justifyContent: "center",
-          height: "58vh",
+          height: "68vh",
           alignItems: "center",
         }}
       >
+        <ToastContainer />
         <Box
           component="form"
           sx={{
@@ -73,7 +118,20 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
             />
           </div>
 
-          {step === 0 && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {step === 0 ? (
+              <p>Login your account</p>
+            ) : (
+              <p>Sign Up your account free</p>
+            )}
+          </div>
+
+          {step === 2 && (
             <div
               style={{
                 display: "flex",
@@ -93,6 +151,9 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
                 defaultValue=""
                 name="name"
               />
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <p style={{ color: "red" }}>{formData.name ? "" : error}</p>
+              </div>
               <TextField
                 sx={{
                   background: toggleDark ? "black" : "",
@@ -105,6 +166,9 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
                 defaultValue=""
                 name="email"
               />
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <p style={{ color: "red" }}>{formData.email ? "" : error}</p>
+              </div>
               <TextField
                 id="outlined-password-input"
                 label="Password"
@@ -113,12 +177,15 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
                 onChange={handleChange}
                 name="password"
               />
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <p style={{ color: "red" }}>{formData.password ? "" : error}</p>
+              </div>
 
               {true && (
                 <div
                   style={{ display: "flex", justifyContent: "space-evenly" }}
                 >
-                  <Button onClick={hanldeSubmit} variant="outlined">
+                  <Button onClick={()=>hanldeSubmit()} variant="outlined">
                     SingUp
                   </Button>
                 </div>
@@ -126,12 +193,13 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
             </div>
           )}
 
-          {step === 2 && (
+          {step === 0 && (
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
                 flexDirection: "column",
+                width: "100%",
               }}
             >
               <TextField
@@ -146,6 +214,9 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
                 defaultValue=""
                 name="email"
               />
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <p style={{ color: "red" }}>{formData.email ? "" : error}</p>
+              </div>
               <TextField
                 id="outlined-password-input"
                 label="Password"
@@ -154,20 +225,36 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
                 onChange={handleChange}
                 name="password"
               />
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <p style={{ color: "red" }}>{formData.password ? "" : error}</p>
+              </div>
 
               {true && (
                 <div
                   style={{ display: "flex", justifyContent: "space-evenly" }}
                 >
-                  <Button onClick={handleLogin} variant="outlined">
+                  <Button onClick={()=>handleLogin()} variant="outlined">
                     login
                   </Button>
                 </div>
               )}
             </div>
           )}
-
-          {/* <img src={Svg} alt="svg" /> */}
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {step !== 2 ? (
+              <p>
+                Don't have account{" "}
+                <Button onClick={() => setStep(2)}>SignUp</Button>{" "}
+              </p>
+            ) : (
+              <p>
+                <p>
+                  If you have account{" "}
+                  <Button onClick={() => setStep(0)}>Login</Button>
+                </p>{" "}
+              </p>
+            )}
+          </div>
         </Box>
       </div>
     </div>

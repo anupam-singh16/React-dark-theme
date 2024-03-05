@@ -15,3 +15,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+/* StickyHeader.css */
+.sticky-header {
+  position: relative;
+  z-index: 1000; /* Ensure the header is above other content */
+  transition: top 0.3s ease;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow when sticky */
+  background-color: white; /* Adjust background color as needed */
+}
