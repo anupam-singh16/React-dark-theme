@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { increment, decrement } from "../store/reducerSlice/cartSlice";
 
 const Card = ({ item }) => {
   const dispatch = useDispatch();
+  const counter = useSelector((state) => state.counter.value);
 
-  const [addCart, setAddCart] = useState(1);
+  const [addCart, setAddCart] = useState(counter);
   const [id, setId] = useState();
   let price = id === item?.id ? item?.price * addCart : null;
   const backgroundImageUrl = item?.image;
@@ -72,7 +73,7 @@ const Card = ({ item }) => {
                 -
               </p>
               <input
-                value={addCart}
+                value={counter}
                 className="h-8 w-[50px] border bg-white text-center text-xs outline-none"
                 type="number"
               />
