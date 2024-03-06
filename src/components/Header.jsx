@@ -6,6 +6,7 @@ const Banner = ({ handleSearchChange }) => {
   const navigate = useNavigate();
 
   const counter = useSelector((state) => state.counter.value);
+  const price = useSelector((state) => state.counter.price);
   console.log(counter, "counter");
 
   return (
@@ -89,15 +90,16 @@ const Banner = ({ handleSearchChange }) => {
             )}
             <div className="bg-gray-100 flex justify-center items-center">
               <div className="relative py-2">
-                {/* {counter ? ( */}
+                {counter !== 0? (
                 <div className="t-0 absolute left-3">
                   <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
                     {counter}
                   </p>
+                  {price}
                 </div>
-                {/* ) : (
+              ) : (
                   ""
-                )} */}
+                )}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

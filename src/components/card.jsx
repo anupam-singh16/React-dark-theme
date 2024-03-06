@@ -6,21 +6,25 @@ const Card = ({ item }) => {
   const dispatch = useDispatch();
   const counter = useSelector((state) => state.counter.value);
 
-  const [addCart, setAddCart] = useState(counter);
-  const [id, setId] = useState();
-  let price = id === item?.id ? item?.price * addCart : null;
+  const [addCart, setAddCart] = useState(0);
+   console.log(addCart,'addCart')
+  let allItemId = item?.id;
+  const [id, setId] = useState(null);
+  let price = id === item?.id ? item?.price * addCart : "";
   const backgroundImageUrl = item?.image;
 
-  const addToCart = (id) => {
-    setId(id);
-    setAddCart(addCart + 1);
-    dispatch(increment());
+  const addIncrement = (idx) => {
+    setId(idx);
+    setAddCart(prevAddCart => prevAddCart + 1);
+
+    dispatch(increment({ price, idx,addCart }));
   };
-  const addToCartMinus = (id) => {
-    // if (addCart !== 0) {
-    //   setAddCart(addCart - 1);
-    // }
-    dispatch(decrement());
+  const addToCartMinus = (idx) => {
+    setId(idx);
+    if (addCart !== 0) {
+      setAddCart(addCart - 1);
+    }
+    dispatch(decrement({ price, idx,addCart }));
   };
 
   console.log(price, "price");
@@ -67,19 +71,19 @@ const Card = ({ item }) => {
 
             <div className="flex items-center border-gray-100">
               <p
-                onClick={() => addToCartMinus(item.id)}
+                onClick={() => addToCartMinus(item?.id)}
                 className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
               >
                 -
               </p>
               <input
-                value={counter}
+                value={id === item.id ? addCart :0}
                 className="h-8 w-[50px] border bg-white text-center text-xs outline-none"
                 type="number"
               />
               {/* <p>{price}</p> */}
               <p
-                onClick={() => addToCart(item.id)}
+                onClick={() => addIncrement( item.id)}
                 className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
               >
                 +
