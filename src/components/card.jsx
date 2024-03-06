@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { increment, decrement } from "../store/reducerSlice/cartSlice";
 
 const Card = ({ item }) => {
+  const dispatch = useDispatch();
+
   const [addCart, setAddCart] = useState(1);
   const [id, setId] = useState();
   let price = id === item?.id ? item?.price * addCart : null;
@@ -9,11 +13,13 @@ const Card = ({ item }) => {
   const addToCart = (id) => {
     setId(id);
     setAddCart(addCart + 1);
+    dispatch(increment());
   };
   const addToCartMinus = (id) => {
-    if (addCart !== 0) {
-      setAddCart(addCart - 1);
-    }
+    // if (addCart !== 0) {
+    //   setAddCart(addCart - 1);
+    // }
+    dispatch(decrement());
   };
 
   console.log(price, "price");

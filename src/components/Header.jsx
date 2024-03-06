@@ -1,8 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Banner = () => {
+const Banner = ({ handleSearchChange }) => {
   const navigate = useNavigate();
+
+  const counter = useSelector((state) => state.counter.value);
 
   return (
     <nav
@@ -87,7 +90,7 @@ const Banner = () => {
               <div className="relative py-2">
                 <div className="t-0 absolute left-3">
                   <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-                  7
+                    {counter}
                   </p>
                 </div>
                 <svg
@@ -130,6 +133,7 @@ const Banner = () => {
           <input
             type="text"
             id="search-navbar"
+            onChange={(e) => handleSearchChange(e)}
             class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search..."
           />
