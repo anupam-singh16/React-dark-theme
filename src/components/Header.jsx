@@ -88,14 +88,14 @@ const Banner = ({ handleSearchChange }) => {
                 Log Out{" "}
               </button>
             )}
-            <div className="bg-gray-100 flex justify-center items-center">
+            <div className=" flex justify-center items-center">
               <div className="relative py-2">
                 {counter !== 0? (
                 <div className="t-0 absolute left-3">
                   <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
                     {counter}
                   </p>
-                  {price}
+                
                 </div>
               ) : (
                   ""
