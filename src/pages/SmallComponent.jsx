@@ -8,7 +8,7 @@ import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Toaster from '../components/Toaster'
+import Toaster from "../components/Toaster";
 
 export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
   const [formData, setFormData] = useState({
@@ -60,7 +60,6 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
   };
 
   const hanldeSubmit = () => {
-    
     if (!validation1()) {
       return;
     }
@@ -69,9 +68,7 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
     toast.success("SingUp Success", {
       position: "bottom-left",
     });
-    navigate("/Home");
-   
-   
+    navigate("/home");
   };
 
   const handleLogin = () => {
@@ -82,7 +79,7 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
     const LS = JSON.parse(localStorage.getItem("formData"));
     if (LS.email === formData.email && LS.password === formData.password) {
       // <Toaster/>
-      navigate("/Home");
+      navigate("/home");
     } else {
       toast.success("Login success");
       alert("invalid password");
@@ -185,7 +182,7 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
                 <div
                   style={{ display: "flex", justifyContent: "space-evenly" }}
                 >
-                  <Button onClick={()=>hanldeSubmit()} variant="outlined">
+                  <Button onClick={() => hanldeSubmit()} variant="outlined">
                     SingUp
                   </Button>
                 </div>
@@ -233,7 +230,7 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
                 <div
                   style={{ display: "flex", justifyContent: "space-evenly" }}
                 >
-                  <Button onClick={()=>handleLogin()} variant="outlined">
+                  <Button onClick={() => handleLogin()} variant="outlined">
                     login
                   </Button>
                 </div>

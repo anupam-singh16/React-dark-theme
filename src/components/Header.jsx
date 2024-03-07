@@ -1,13 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Banner = ({ handleSearchChange }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const counter = useSelector((state) => state.counter.value);
   const price = useSelector((state) => state.counter.price);
-  console.log(counter, "counter");
+  console.log(location, "location");
 
   return (
     <nav
@@ -36,12 +37,12 @@ const Banner = ({ handleSearchChange }) => {
           <nav>
             <ul className="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0">
               <li>
-                <a
-                  className="inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
-                  href="#"
+                <p
+                  className="inline-block cursor-pointer no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                  onClick={() => navigate("/home")}
                 >
                   Home
-                </a>
+                </p>
               </li>
               <li>
                 <a
@@ -68,21 +69,25 @@ const Banner = ({ handleSearchChange }) => {
           id="nav-content"
         >
           <div className="auth flex items-center w-full md:w-full">
-            <button
-              onClick={() => navigate("/login")}
-              className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700"
-            >
-              Sign in
-            </button>
-            <button
-              onClick={() => navigate("/login")}
-              className="bg-blue-600 text-gray-200  p-2 rounded  hover:bg-blue-500 mr-4 hover:text-gray-100"
-            >
-              Sign up
-            </button>
-            {navigate === "/home" && (
+            {location.pathname === "/login" && (
               <button
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/login")}
+                className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700"
+              >
+                Sign in
+              </button>
+            )}
+            {location.pathname === "/login" && (
+              <button
+                onClick={() => navigate("/login")}
+                className="bg-blue-600 text-gray-200  p-2 rounded  hover:bg-blue-500 mr-4 hover:text-gray-100"
+              >
+                Sign up
+              </button>
+            )}
+            {location.pathname !== "/login" && (
+              <button
+                onClick={() => navigate("/login")}
                 className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700"
               >
                 Log Out{" "}
@@ -90,14 +95,13 @@ const Banner = ({ handleSearchChange }) => {
             )}
             <div className=" flex justify-center items-center">
               <div className="relative py-2">
-                {counter !== 0? (
-                <div className="t-0 absolute left-3">
-                  <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-                    {counter}
-                  </p>
-                
-                </div>
-              ) : (
+                {counter !== 0 ? (
+                  <div className="t-0 absolute left-3">
+                    <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
+                      {counter}
+                    </p>
+                  </div>
+                ) : (
                   ""
                 )}
                 <svg
@@ -118,33 +122,35 @@ const Banner = ({ handleSearchChange }) => {
             </div>
           </div>
         </div>
-        <div className="relative hidden md:block">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-            <span className="sr-only">Search icon</span>
+        {location.pathname === "/home" && (
+          <div className="relative hidden md:block">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+              <span className="sr-only">Search icon</span>
+            </div>
+            <input
+              type="text"
+              id="search-navbar"
+              onChange={(e) => handleSearchChange(e)}
+              class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search..."
+            />
           </div>
-          <input
-            type="text"
-            id="search-navbar"
-            onChange={(e) => handleSearchChange(e)}
-            class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search..."
-          />
-        </div>
+        )}
       </div>
     </nav>
   );

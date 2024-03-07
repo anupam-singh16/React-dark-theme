@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { increment, decrement } from "../store/reducerSlice/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({ item }) => {
   const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter.value);
+  const navigate = useNavigate();
+  // const counter = useSelector((state) => state.counter.value);
 
   const [addCart, setAddCart] = useState(0);
-  console.log(addCart, "addCart");
-  let allItemId = item?.id;
+
   const [id, setId] = useState(null);
+
   let price = id === item?.id ? item?.price * addCart : "";
+
   const backgroundImageUrl = item?.image;
 
   const addIncrement = (idx) => {
@@ -34,6 +37,7 @@ const Card = ({ item }) => {
       <div className="w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
         <div className="max-w-md mx-auto">
           <div
+            onClick={() => navigate(`/detailsPage/${item?.id}`)}
             className="h-[236px] grayscale-0 "
             style={{
               backgroundImage: `url(${backgroundImageUrl})`,
@@ -41,7 +45,10 @@ const Card = ({ item }) => {
             }}
           ></div>
           <div className="p-4 sm:p-6">
-            <p className="font-bold text-gray-700 text-2xl max-h-32 leading-7 mb-1 overflow-hidden">
+            <p
+              onClick={() => navigate(`/detailsPage/${item?.id}`)}
+              className="font-bold text-gray-700 text-2xl max-h-32 leading-7 mb-1 overflow-hidden"
+            >
               {item?.title}
             </p>
 
@@ -55,7 +62,7 @@ const Card = ({ item }) => {
 
             <p
               target="_blank"
-              href="foodiesapp://food/1001"
+              onClick={() => navigate(`/detailsPage/${item?.id}`)}
               className="block mt-10 cursor-pointer w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
             >
               Buy Now
