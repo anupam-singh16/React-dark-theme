@@ -14,7 +14,7 @@ const Card = ({ item }) => {
 
   let price = id === item?.id ? item?.price * addCart : "";
 
-  const backgroundImageUrl = item?.image;
+  const backgroundImageUrl = item?.images[1] || item?.images[0] || item?.images[2] || item?.images[3];
 
   const addIncrement = (idx) => {
     setId(idx);
@@ -30,7 +30,6 @@ const Card = ({ item }) => {
     dispatch(decrement({ price, idx, addCart }));
   };
 
-  console.log(price, "price");
 
   return (
     <div className="flex items-center justify-center   p-6 ">
@@ -44,21 +43,19 @@ const Card = ({ item }) => {
               backgroundSize: "cover",
             }}
           ></div>
-          <div className="p-4 sm:p-6">
+          <div className="p-4 sm:p-6 ">
             <p
               onClick={() => navigate(`/detailsPage/${item?.id}`)}
-              className="font-bold text-gray-700 text-2xl max-h-32 leading-7 mb-1 overflow-hidden"
+              className="font-bold text-gray-700 text-2xl h-[80px] leading-7 mb-1 overflow-hidden"
             >
               {item?.title}
             </p>
-
-            <p className="text-[17px] font-bold text-[#0FB478]">
-              ₹ {item?.price}
-            </p>
-
-            <p className="text-[#7C7C80] font-[15px] h-[20px] mt-6 truncate ...">
-              {item?.description}
-            </p>
+            <span className="flex justify-left flex-row font-bold text-gray-700" >
+              MRP{""}&nbsp;&nbsp;
+              <p className="text-[17px] font-bold text-[#0FB478]">
+                ₹{item?.price}
+              </p>
+            </span>
 
             <p
               target="_blank"

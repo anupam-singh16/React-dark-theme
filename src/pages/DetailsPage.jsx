@@ -6,10 +6,13 @@ import Skeleton from "@mui/material/Skeleton";
 import { Box, Grid } from "@mui/material";
 
 const DetailsPage = () => {
-  const { data } = UseFetch();
+  const { data, product } = UseFetch();
   const { id } = useParams();
 
-  const matchedData = data?.find((item) => item.id === parseInt(id));
+  const matchedData = product?.find((item) => item.id === parseInt(id));
+ 
+  console.log(matchedData,'matchedData')
+
 
   let rate = matchedData?.rating?.rate;
   const maxRating = 5;
@@ -39,7 +42,7 @@ const DetailsPage = () => {
               <img
                 alt="ecommerce"
                 className="lg:w-1/2 h-[550px]  object-center rounded border border-gray-200"
-                src={matchedData?.image}
+                src={matchedData?.images[0]}
               />
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
