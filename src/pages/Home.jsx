@@ -5,7 +5,8 @@ import Header from "../components/Header";
 import Skeleton from "../components/Skeleton";
 
 const Home = () => {
-  const { data, product } = UseFetch();
+  const { stockMarket, product } = UseFetch();
+  console.log(stockMarket, stockMarket?.length, "stockMarket");
   console.log(product, "product");
   const [isSticky, setSticky] = useState(false);
   const headerRef = useRef(null);
@@ -54,6 +55,10 @@ const Home = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const nextPage = currentPage < totalPages ? currentPage + 1 : null;
+  const prePage = currentPage < totalPages ? currentPage - 1 : null;
+
   const BothData = paginatedData || searchResults;
 
   return (
@@ -103,7 +108,7 @@ const Home = () => {
                   href="#"
                 >
                   {" "}
-                  1
+                  {prePage === 0 ? "" : prePage}
                 </a>
               </li>
               <li className="page-item active">
@@ -119,7 +124,7 @@ const Home = () => {
                   className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
                   href="#"
                 >
-                  3
+                  {nextPage}
                 </a>
               </li>
               <li className="page-item">

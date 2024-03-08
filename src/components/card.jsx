@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Card = ({ item }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const counter = useSelector((state) => state.counter.value);
+  const allItem = useSelector((state) => state.counter.allItem);
 
   const [addCart, setAddCart] = useState(0);
 
@@ -14,8 +14,9 @@ const Card = ({ item }) => {
 
   let price = id === item?.id ? item?.price * addCart : "";
 
-  // const backgroundImageUrl =
-  //   item?.images[1] || item?.images[0] || item?.images[2] || item?.images[3];
+  const matchingItem = allItem.find((item) => parseFloat(item.id) === id);
+
+  console.log(matchingItem?.id, "matchingItem");
 
   const addIncrement = (idx) => {
     setId(idx);
@@ -28,6 +29,10 @@ const Card = ({ item }) => {
     if (addCart !== 0) {
       setAddCart(addCart - 1);
     }
+    dispatch(decrement({ price, idx }));
+  };
+
+  const removeFromCart = (idx) => {
     dispatch(decrement({ price, idx }));
   };
 
@@ -71,7 +76,7 @@ const Card = ({ item }) => {
             >
               Buy Now
             </p>
-            {id !== item.id || addCart === 0 ? (
+            {matchingItem?.id !== item.id || addCart === 0 ? (
               <p
                 target="_blank"
                 onClick={() => addIncrement(item.id)}
@@ -82,7 +87,7 @@ const Card = ({ item }) => {
             ) : (
               <p
                 target="_blank"
-                onClick={() => addIncrement(item.id)}
+                onClick={() => removeFromCart(item.id)}
                 className="block mt-1.5 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] hover:bg-[#F2ECE7] bg-[#F2ECE7] hover:text-[#000000dd] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
               >
                 Remove From Cart

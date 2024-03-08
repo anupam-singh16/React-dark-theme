@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import UseFetch from "../customHooks/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "../store/reducerSlice/cartSlice";
+import {
+  decrement,
+  deleteCartItem,
+  increment,
+} from "../store/reducerSlice/cartSlice";
 import { useNavigate } from "react-router";
 
 const CartPage = ({ item }) => {
-  const { product } = UseFetch();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const allItem = useSelector((state) => state.counter.allItem);
-  const counter = useSelector((state) => state.counter.value);
-  const select = useSelector((state) => state.counter);
 
   const [addCart, setAddCart] = useState(1);
 
@@ -19,10 +20,6 @@ const CartPage = ({ item }) => {
 
   const matchingItem = allItem.find((item) => parseFloat(item.id) === id);
   let price = matchingItem ? matchingItem.price * addCart : "";
-
-  console.log(price, "price");
-
-  //   const matchedData = product?.find((item) => item.id === parseInt(id));
 
   const addIncrement = (idx) => {
     setId(idx);
@@ -36,6 +33,10 @@ const CartPage = ({ item }) => {
       setAddCart(addCart - 1);
     }
     dispatch(decrement({ price, idx }));
+  };
+
+  const deleteItem = (id) => {
+    dispatch(deleteCartItem(price, id));
   };
 
   return (
@@ -63,7 +64,7 @@ const CartPage = ({ item }) => {
                     <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                       <div className="flex items-center border-gray-100">
                         <span
-                          onClick={() => addToCartMinus(item.id)}
+                          onClick={() => addToCartMinus(item?.id)}
                           className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
                         >
                           {" "}
@@ -72,7 +73,7 @@ const CartPage = ({ item }) => {
                         <input
                           className="h-8 w-8 border bg-white text-center text-xs outline-none"
                           type="number"
-                          value={counter}
+                          value={addCart}
                         />
                         <span
                           onClick={() => addIncrement(item?.id)}
@@ -91,6 +92,7 @@ const CartPage = ({ item }) => {
                         <p className="text-sm">{item?.price}</p>
 
                         <svg
+                          onClick={() => deleteItem(item?.id)}
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"

@@ -14,7 +14,7 @@ const counterSlice = createSlice({
     increment: {
       reducer: (state, action) => {
         const { price } = action.payload;
-        console.log(action.payload, "actionpayload");
+        console.log(price?.item?.id, "actionpayload");
 
         state.value += 1;
         state.price = price.price;
@@ -33,10 +33,26 @@ const counterSlice = createSlice({
         console.log(action.payload, "action.payload");
 
         if (state.value !== 0) {
-          state.value -= 1;
+          state.value -= state.value === 1 ? 1 : "";
           state.price = price;
+          return;
         }
         state.price = price.price;
+        const filter = state.allItem?.filter((item) => item.id !== price.idx);
+        state.allItem = filter;
+      },
+      prepare: (price, id) => {
+        return { payload: { price, id } };
+      },
+    },
+
+    deleteCartItem: {
+      reducer: (state, action) => {
+        const { id } = action.payload;
+
+        const filter = state.allItem?.filter((item) => item.id !== id);
+        state.allItem = filter;
+        console.log(filter, "filter");
       },
       prepare: (price, id) => {
         return { payload: { price, id } };
@@ -45,6 +61,6 @@ const counterSlice = createSlice({
   },
 });
 
-export const { increment, decrement } = counterSlice.actions;
+export const { increment, decrement, deleteCartItem } = counterSlice.actions;
 
 export default counterSlice.reducer;

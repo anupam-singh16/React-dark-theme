@@ -6,7 +6,6 @@ const Banner = ({ handleSearchChange }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const counter = useSelector((state) => state.counter.value);
   const cartLength = useSelector((state) => state.counter.allItem?.length);
 
   console.log(cartLength, "id");
