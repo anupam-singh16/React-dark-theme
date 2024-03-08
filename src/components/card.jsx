@@ -75,32 +75,18 @@ const Card = ({ item }) => {
               <p
                 target="_blank"
                 onClick={() => addIncrement(item.id)}
-                // href="https://apps.apple.com/us/app/id1493631471"
                 className="block mt-1.5 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] hover:bg-[#F2ECE7] bg-[#F2ECE7] hover:text-[#000000dd] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
               >
                 add cart
               </p>
             ) : (
-              <div className="flex items-center justify-center pt-5 border-gray-100">
-                <p
-                  onClick={() => addToCartMinus(item?.id)}
-                  className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                >
-                  -
-                </p>
-                <input
-                  value={id === item.id ? addCart : 0}
-                  className="h-8 w-[50px] border bg-white text-center text-xs outline-none"
-                  type="number"
-                />
-                {/* <p>{price}</p> */}
-                <p
-                  onClick={() => addIncrement(item.id)}
-                  className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                >
-                  +
-                </p>
-              </div>
+              <p
+                target="_blank"
+                onClick={() => addIncrement(item.id)}
+                className="block mt-1.5 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] hover:bg-[#F2ECE7] bg-[#F2ECE7] hover:text-[#000000dd] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
+              >
+                Remove From Cart
+              </p>
             )}
           </div>
         </div>

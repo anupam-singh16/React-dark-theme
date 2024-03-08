@@ -13,7 +13,7 @@ const counterSlice = createSlice({
   reducers: {
     increment: {
       reducer: (state, action) => {
-        const { price, id, addCart } = action.payload;
+        const { price } = action.payload;
         console.log(action.payload, "actionpayload");
 
         state.value += 1;
