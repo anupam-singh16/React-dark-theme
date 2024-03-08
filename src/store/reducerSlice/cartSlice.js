@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   value: 0,
   price: "",
+  allItem: [],
 };
 
 const counterSlice = createSlice({
@@ -12,11 +13,15 @@ const counterSlice = createSlice({
   reducers: {
     increment: {
       reducer: (state, action) => {
-        const { price, id ,addCart} = action.payload;
-        console.log(action.payload.price.addCart, "actionpayload");
+        const { price, id, addCart } = action.payload;
+        console.log(action.payload, "actionpayload");
 
         state.value += 1;
         state.price = price.price;
+        if (price?.item) {
+          state.allItem.push(price?.item);
+          return;
+        }
       },
       prepare: (price, id) => {
         return { payload: { price, id } };
@@ -27,7 +32,7 @@ const counterSlice = createSlice({
         const { price, id } = action.payload;
         console.log(action.payload, "action.payload");
 
-        if (state.value !== 0 ) {
+        if (state.value !== 0) {
           state.value -= 1;
           state.price = price;
         }

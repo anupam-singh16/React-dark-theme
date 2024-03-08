@@ -14,35 +14,42 @@ const Card = ({ item }) => {
 
   let price = id === item?.id ? item?.price * addCart : "";
 
-  const backgroundImageUrl = item?.images[1] || item?.images[0] || item?.images[2] || item?.images[3];
+  // const backgroundImageUrl =
+  //   item?.images[1] || item?.images[0] || item?.images[2] || item?.images[3];
 
   const addIncrement = (idx) => {
     setId(idx);
     setAddCart((prevAddCart) => prevAddCart + 1);
 
-    dispatch(increment({ price, idx, addCart }));
+    dispatch(increment({ price, idx, item }));
   };
   const addToCartMinus = (idx) => {
     setId(idx);
     if (addCart !== 0) {
       setAddCart(addCart - 1);
     }
-    dispatch(decrement({ price, idx, addCart }));
+    dispatch(decrement({ price, idx }));
   };
 
-
   return (
-    <div className="flex items-center justify-center   p-6 ">
-      <div className="w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
+    <div className="flex items-center justify-center  p-4 ">
+      <div className="w-[85%] max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
         <div className="max-w-md mx-auto">
           <div
             onClick={() => navigate(`/detailsPage/${item?.id}`)}
-            className="h-[236px] grayscale-0 "
-            style={{
-              backgroundImage: `url(${backgroundImageUrl})`,
-              backgroundSize: "cover",
-            }}
-          ></div>
+            className="flex justify-center w-full"
+            // style={{
+            //   // borderRadius: "10px",
+            //   backgroundImage: `url(${backgroundImageUrl})`,
+            //   backgroundSize: "cover",
+            // }}
+          >
+            <img
+              style={{ border: "10px" }}
+              className="h-[200px] w-[300px]"
+              src={item?.images[0]}
+            />
+          </div>
           <div className="p-4 sm:p-6 ">
             <p
               onClick={() => navigate(`/detailsPage/${item?.id}`)}
@@ -50,7 +57,7 @@ const Card = ({ item }) => {
             >
               {item?.title}
             </p>
-            <span className="flex justify-left flex-row font-bold text-gray-700" >
+            <span className="flex justify-left flex-row font-bold text-gray-700">
               MRP{""}&nbsp;&nbsp;
               <p className="text-[17px] font-bold text-[#0FB478]">
                 ₹{item?.price}
