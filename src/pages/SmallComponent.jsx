@@ -20,7 +20,6 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
   const [step, setStep] = useState(0);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  console.log(formData, "formData");
   const [enable, setEnable] = useState(false);
 
   const handleModeChange = () => {
@@ -65,9 +64,7 @@ export default function FormPropsTextFields({ toggleDark, settoggleDark }) {
     }
     setError("");
     localStorage.setItem("formData", JSON.stringify(formData));
-    toast.success("SingUp Success", {
-      position: "bottom-left",
-    });
+
     navigate("/home");
   };
 

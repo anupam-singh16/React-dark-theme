@@ -4,24 +4,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import UseFetch from "../customHooks/apiCalls";
 import Skeleton from "@mui/material/Skeleton";
 import { Box, Grid } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { increment } from "../store/reducerSlice/cartSlice";
 
 const DetailsPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { data, product } = UseFetch();
   const { id } = useParams();
+  let idx = id;
 
-  const matchedData = product?.find((item) => item.id === parseInt(id));
- 
-  console.log(matchedData,'matchedData')
-
+  const matchedData = data?.find((item) => item.id === parseInt(id));
+  const item = matchedData;
 
   let rate = matchedData?.rating?.rate;
   const maxRating = 5;
 
   const percentage = (rate / maxRating) * 100;
-  console.log(Math.round(percentage / 20), "per");
 
   const stars = [];
-  console.log(stars, "stars");
   for (let i = 0; i < maxRating; i++) {
     let starClass = "";
     if (i < Math.round(percentage / 20)) {
@@ -42,7 +43,7 @@ const DetailsPage = () => {
               <img
                 alt="ecommerce"
                 className="lg:w-1/2 h-[550px]  object-center rounded border border-gray-200"
-                src={matchedData?.images[0]}
+                src={matchedData?.image}
               />
               <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
@@ -163,8 +164,14 @@ const DetailsPage = () => {
                   <span className="title-font font-medium text-2xl text-gray-900">
                     ${matchedData?.price}
                   </span>
-                  <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
-                    Button
+                  <button
+                    onClick={() => {
+                      navigate("/CartPage");
+                      dispatch(increment({ item }));
+                    }}
+                    className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                  >
+                    Buy Now
                   </button>
                   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                     <svg

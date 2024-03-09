@@ -5,14 +5,12 @@ import Header from "../components/Header";
 import Skeleton from "../components/Skeleton";
 
 const Home = () => {
-  const { stockMarket, product } = UseFetch();
-  console.log(stockMarket, stockMarket?.length, "stockMarket");
-  console.log(product, "product");
+  const { stockMarket, product, data } = UseFetch();
   const [isSticky, setSticky] = useState(false);
   const headerRef = useRef(null);
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
 
   const [searchText, setSearchText] = useState("");
   useEffect(() => {
@@ -33,13 +31,13 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const filteredResults = product?.filter((item) =>
+    const filteredResults = data?.filter((item) =>
       item.title?.toLowerCase().includes(searchText?.toLowerCase())
     );
 
     setSearchResults(filteredResults);
     setCurrentPage(1); // Reset page to 1 when search text changes
-  }, [searchText, product]);
+  }, [searchText, data]);
 
   const totalPages = Math.ceil(searchResults?.length / itemsPerPage);
 
@@ -70,7 +68,7 @@ const Home = () => {
       >
         <Header handleSearchChange={handleSearchChange} />
       </div>
-      {product?.length > 0 ? (
+      {data?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-2 mt-20 ">
           {BothData?.map((item) => {
             return <Card item={item} />;
@@ -80,7 +78,7 @@ const Home = () => {
         <Skeleton />
       )}
 
-      {product && (
+      {data && (
         <div
           className="flex justify-center bg-white-700 w-full"
           style={{ position: "fixed", bottom: "0px" }}

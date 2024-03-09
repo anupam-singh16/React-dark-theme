@@ -8,8 +8,6 @@ const Banner = ({ handleSearchChange }) => {
 
   const cartLength = useSelector((state) => state.counter.allItem?.length);
 
-  console.log(cartLength, "id");
-
   return (
     <nav
       id="header"
@@ -97,7 +95,7 @@ const Banner = ({ handleSearchChange }) => {
               onClick={() => navigate("/CartPage")}
               className=" flex justify-center items-center"
             >
-              <div className="relative py-2">
+              <div className="relative cursor-pointer py-2">
                 {cartLength !== 0 ? (
                   <div className="t-0 absolute left-3">
                     <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">

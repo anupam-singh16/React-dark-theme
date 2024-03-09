@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement } from "../store/reducerSlice/cartSlice";
+import {
+  increment,
+  decrement,
+  addAllItem,
+} from "../store/reducerSlice/cartSlice";
 import { useNavigate } from "react-router-dom";
 
 const Card = ({ item }) => {
@@ -15,21 +19,12 @@ const Card = ({ item }) => {
   let price = id === item?.id ? item?.price * addCart : "";
 
   const matchingItem = allItem.find((item) => parseFloat(item.id) === id);
-
-  console.log(matchingItem?.id, "matchingItem");
-
+  console.log(matchingItem?.id === item.id, "matchingItem");
   const addIncrement = (idx) => {
     setId(idx);
     setAddCart((prevAddCart) => prevAddCart + 1);
 
-    dispatch(increment({ price, idx, item }));
-  };
-  const addToCartMinus = (idx) => {
-    setId(idx);
-    if (addCart !== 0) {
-      setAddCart(addCart - 1);
-    }
-    dispatch(decrement({ price, idx }));
+    dispatch(addAllItem({ price, idx, item }));
   };
 
   const removeFromCart = (idx) => {
@@ -52,7 +47,7 @@ const Card = ({ item }) => {
             <img
               style={{ border: "10px" }}
               className="h-[200px] w-[300px]"
-              src={item?.images[0]}
+              src={item?.image}
             />
           </div>
           <div className="p-4 sm:p-6 ">
@@ -72,15 +67,15 @@ const Card = ({ item }) => {
             <p
               target="_blank"
               onClick={() => navigate(`/detailsPage/${item?.id}`)}
-              className="block mt-10 cursor-pointer w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
+              className="cursor-pointer block mt-10 cursor-pointer w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform bg-[#FFC933] rounded-[14px] hover:bg-[#FFC933DD] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
             >
               Buy Now
             </p>
-            {matchingItem?.id !== item.id || addCart === 0 ? (
+            {matchingItem?.id !== item.id || id !== item.id ? (
               <p
                 target="_blank"
                 onClick={() => addIncrement(item.id)}
-                className="block mt-1.5 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] hover:bg-[#F2ECE7] bg-[#F2ECE7] hover:text-[#000000dd] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
+                className="cursor-pointer block mt-1.5 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] hover:bg-[#F2ECE7] bg-[#F2ECE7] hover:text-[#000000dd] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
               >
                 add cart
               </p>
@@ -88,7 +83,7 @@ const Card = ({ item }) => {
               <p
                 target="_blank"
                 onClick={() => removeFromCart(item.id)}
-                className="block mt-1.5 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] hover:bg-[#F2ECE7] bg-[#F2ECE7] hover:text-[#000000dd] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
+                className="cursor-pointer  block mt-1.5 w-full px-4 py-3 font-medium tracking-wide text-center capitalize transition-colors duration-300 transform rounded-[14px] hover:bg-[#F2ECE7] bg-[#F2ECE7] hover:text-[#000000dd] focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
               >
                 Remove From Cart
               </p>

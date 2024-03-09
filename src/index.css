@@ -16,7 +16,6 @@ code {
     monospace;
 }
 
-
 /* StickyHeader.css */
 .sticky-header {
   position: relative;
@@ -42,11 +41,11 @@ code {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #ff8a04;
+  background: #9e9e9e;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff8a04;
+  background: #868686;
 }
