@@ -14,13 +14,9 @@ const counterSlice = createSlice({
     increment: {
       reducer: (state, action) => {
         const { price } = action.payload;
-        console.log(action, "action.payload1");
 
         state.value += 1;
         state.price = price.price;
-        // if (price?.item) {
-        //   state.allItem.push(price?.item);
-        // }
       },
       prepare: (price, id) => {
         return { payload: { price, id } };
@@ -30,7 +26,6 @@ const counterSlice = createSlice({
     addAllItem: {
       reducer: (state, action) => {
         const { price } = action.payload;
-        console.log(action, "addAllItem");
 
         if (price?.item) {
           state.allItem.push(price?.item);
@@ -54,7 +49,6 @@ const counterSlice = createSlice({
     decrement: {
       reducer: (state, action) => {
         const { price, id } = action.payload;
-        console.log(price.addCart, "payload");
 
         const filter = state.allItem?.filter((item) => item.id !== price.idx);
         state.allItem = filter;
