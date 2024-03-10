@@ -5,7 +5,7 @@ import UseFetch from "../customHooks/apiCalls";
 import Skeleton from "@mui/material/Skeleton";
 import { Box, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { increment } from "../store/reducerSlice/cartSlice";
+import { addAllItem } from "../store/reducerSlice/cartSlice";
 
 const DetailsPage = () => {
   const dispatch = useDispatch();
@@ -167,7 +167,7 @@ const DetailsPage = () => {
                   <button
                     onClick={() => {
                       navigate("/CartPage");
-                      dispatch(increment({ item }));
+                      dispatch(addAllItem({ item }));
                     }}
                     className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
                   >
