@@ -13,18 +13,7 @@ const Home = () => {
   const [itemsPerPage, setItemsPerPage] = useState(8);
 
   const [searchText, setSearchText] = useState("");
-  useEffect(() => {
-    const handleScroll = () => {
-      if (headerRef.current) {
-        setSticky(headerRef.current.getBoundingClientRect().top <= 0);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);

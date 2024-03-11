@@ -13,7 +13,7 @@ function Media(props) {
   return (
     <Grid container wrap="nowrap">
       {[{}, {}, {}]?.map((item, index) => (
-        <Box key={index} sx={{ width: 510, marginLeft: 10, my: 5 }}>
+        <Box key={index} sx={{ width: 510, marginLeft: 10, my: 5 ,marginTop:15}}>
           <Skeleton variant="rectangular" width={350} height={250} />
 
           <Box sx={{ pt: 0.5 }}>

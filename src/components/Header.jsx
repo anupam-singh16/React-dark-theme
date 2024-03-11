@@ -11,7 +11,8 @@ const Banner = ({ handleSearchChange }) => {
   return (
     <nav
       id="header"
-      className="w-full z-30 top-10 py-1 bg-white shadow-lg border-b border-blue-400 mt-0"
+      className="w-full z-30 top-0 py-1 bg-white shadow-lg border-b border-blue-400 mt-0"
+      style={{ position: "fixed", zIndex: 1 }}
     >
       <div className="w-full flex items-center justify-between mt-0 px-6 py-2">
         <label for="menu-toggle" className="cursor-pointer md:hidden block">
@@ -34,45 +35,56 @@ const Banner = ({ handleSearchChange }) => {
         >
           <nav>
             <ul className="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0">
-              <li>
-                <p
-                  className="inline-block cursor-pointer no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
-                  onClick={() => navigate("/home")}
-                >
-                  Home
-                </p>
-              </li>
-              <li>
-                <p
-                onClick={()=>navigate('/menSection')}
-                className="cursor-pointer  inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2">
-                  Mens
-                </p>
-              </li>
-              <li>
-                <a
-                  className=" cursor-pointer inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
-                  onClick={() => navigate("/womenSection")}
-                >
-                  Women
-                </a>
-              </li>
-              <li>
-                <p
-                  className="cursor-pointer inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
-                  onClick={()=>navigate('/Jewellery')}
+              {location.pathname !== "/home" && (
+                <li>
+                  <p
+                    className="inline-block cursor-pointer no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                    onClick={() => navigate("/home")}
                   >
-                  Jewellery
-                </p>
-              </li>
-              <li>
-                <a
-                  onClick={()=>navigate('/Electonics')}
-                  className=" cursor-pointer inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
-                >
-                  Electronics
-                </a>
-              </li>
+                    Home
+                  </p>
+                </li>
+              )}
+              {location.pathname !== "/menSection" && (
+                <li>
+                  <p
+                    onClick={() => navigate("/menSection")}
+                    className="cursor-pointer  inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                  >
+                    Mens
+                  </p>
+                </li>
+              )}
+              {location.pathname !== "/womenSection" && (
+                <li>
+                  <a
+                    className=" cursor-pointer inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                    onClick={() => navigate("/womenSection")}
+                  >
+                    Women
+                  </a>
+                </li>
+              )}
+              {location.pathname !== "/Jewellery" && (
+                <li>
+                  <p
+                    className="cursor-pointer inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                    onClick={() => navigate("/Jewellery")}
+                  >
+                    Jewellery
+                  </p>
+                </li>
+              )}
+              {location.pathname !== "/Electonics" && (
+                <li>
+                  <a
+                    onClick={() => navigate("/Electonics")}
+                    className=" cursor-pointer inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                  >
+                    Electronics
+                  </a>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
