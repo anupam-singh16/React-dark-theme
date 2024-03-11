@@ -9,6 +9,7 @@ const Men = () => {
 
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  console.log(searchResult, "searchResult");
 
   useEffect(() => {
     const filteredResults = allCategory?.mensProducts?.filter((item) =>
@@ -16,7 +17,7 @@ const Men = () => {
     );
 
     setSearchResult(filteredResults);
-  }, [search,allCategory?.mensProducts]);
+  }, [search, allCategory?.mensProducts]);
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);

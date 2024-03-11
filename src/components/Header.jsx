@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Banner = ({ handleSearchChange }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const cartLength = useSelector((state) => state.counter.allItem?.length);
   const category = ["home", "men", "women", "electronics", "jewellery"];
+  const cartLength = useSelector((state) => state.counter.allItem?.length);
+  const [selectName, setSelectName] = useState();
 
   const goToScreen = (name, i) => {
+    setSelectName(name);
     navigate(`/${name}`);
   };
 
@@ -104,6 +105,10 @@ const Banner = ({ handleSearchChange }) => {
                 return (
                   <li>
                     <p
+                      style={{
+                        color: item === selectName ? "black" : "",
+                        textDecoration: item === selectName ? "underline" : "",
+                      }}
                       className="inline-block cursor-pointer no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
                       onClick={() => goToScreen(item, i)}
                     >
