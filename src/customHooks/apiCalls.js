@@ -6,6 +6,14 @@ function UseFetch() {
   const [error, setError] = useState(null);
   const [product, setProduct] = useState([]);
   const [stockMarket, setStockMarketData] = useState([]);
+  const [allCategory,setAllCategory] = useState({
+    mensProducts :[],
+    womensProducts:[],
+    jewelery:[],
+    electronics:[]
+
+  })
+  console.log(allCategory,'allCategory')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +74,32 @@ function UseFetch() {
     fetchData();
   }, []);
 
-  return { data, stockMarket, product, loading, error };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('https://fakestoreapi.com/products');
+        const data = await response.json();
+        // Filter products based on gender
+        const mensProducts = data?.filter(product => product.category === "men's clothing");
+        const womensProducts = data?.filter(product => product.category === "women's clothing");
+        const jewelery = data?.filter(product => product.category === "jewelery");
+        const electronics = data?.filter(product => product.category === "electronics");
+        
+        allCategory.mensProducts = mensProducts
+        allCategory.womensProducts = womensProducts
+        allCategory.jewelery = jewelery
+        allCategory.electronics = electronics
+
+
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+
+  return { data,allCategory, stockMarket, product, loading, error };
 }
 
 export default UseFetch;
