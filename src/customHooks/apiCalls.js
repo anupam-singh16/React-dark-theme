@@ -79,7 +79,7 @@ function UseFetch() {
       try {
         const response = await fetch('https://fakestoreapi.com/products');
         const data = await response.json();
-        // Filter products based on gender
+       
         const mensProducts = data?.filter(product => product.category === "men's clothing");
         const womensProducts = data?.filter(product => product.category === "women's clothing");
         const jewelery = data?.filter(product => product.category === "jewelery");

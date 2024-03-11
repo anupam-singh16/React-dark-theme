@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import Skeleton from "../components/Skeleton";
 
 const Home = () => {
-  const { stockMarket, product, data } = UseFetch();
+  const { stockMarket, allCategory, data } = UseFetch();
   const [isSticky, setSticky] = useState(false);
   const headerRef = useRef(null);
   const [searchResults, setSearchResults] = useState([]);

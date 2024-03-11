@@ -43,19 +43,34 @@ const Banner = ({ handleSearchChange }) => {
                 </p>
               </li>
               <li>
-                <a
-                  className="inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
-                  href="#"
-                >
-                  Products
-                </a>
+                <p
+                onClick={()=>navigate('/menSection')}
+                className="cursor-pointer  inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2">
+                  Mens
+                </p>
               </li>
               <li>
                 <a
-                  className="inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
-                  href="#"
+                  className=" cursor-pointer inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                  onClick={() => navigate("/womenSection")}
                 >
-                  About
+                  Women
+                </a>
+              </li>
+              <li>
+                <p
+                  className="cursor-pointer inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                  onClick={()=>navigate('/Jewellery')}
+                  >
+                  Jewellery
+                </p>
+              </li>
+              <li>
+                <a
+                  onClick={()=>navigate('/Electonics')}
+                  className=" cursor-pointer inline-block no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                >
+                  Electronics
                 </a>
               </li>
             </ul>
