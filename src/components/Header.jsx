@@ -7,6 +7,11 @@ const Banner = ({ handleSearchChange }) => {
   const location = useLocation();
 
   const cartLength = useSelector((state) => state.counter.allItem?.length);
+  const category = ["home", "men", "women", "electronics", "jewellery"];
+
+  const goToScreen = (name, i) => {
+    navigate(`/${name}`);
+  };
 
   return (
     <nav
@@ -29,7 +34,7 @@ const Banner = ({ handleSearchChange }) => {
         </label>
         <input className="hidden" type="checkbox" id="menu-toggle" />
 
-        <div
+        {/* <div
           className="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1"
           id="menu"
         >
@@ -85,6 +90,28 @@ const Banner = ({ handleSearchChange }) => {
                   </a>
                 </li>
               )}
+            </ul>
+          </nav>
+        </div> */}
+
+        <div
+          className="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1"
+          id="menu"
+        >
+          <nav>
+            <ul className="md:flex items-center justify-between text-base text-blue-600 pt-4 md:pt-0">
+              {category.map((item, i) => {
+                return (
+                  <li>
+                    <p
+                      className="inline-block cursor-pointer no-underline hover:text-black font-medium text-lg py-2 px-4 lg:-ml-2"
+                      onClick={() => goToScreen(item, i)}
+                    >
+                      {item?.charAt(0)?.toUpperCase() + item?.slice(1)}
+                    </p>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         </div>
@@ -150,7 +177,7 @@ const Banner = ({ handleSearchChange }) => {
             </div>
           </div>
         </div>
-        {location.pathname === "/home" && (
+        {true && (
           <div className="relative hidden md:block">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg

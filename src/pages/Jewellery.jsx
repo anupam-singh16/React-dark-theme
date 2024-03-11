@@ -2,11 +2,16 @@ import Card from "../components/card";
 import UseFetch from "../customHooks/apiCalls";
 import Header from "../components/Header";
 import Skeleton from "../components/Skeleton";
+import { useEffect } from "react";
 
 const Men = () => {
   const { allCategory } = UseFetch();
  
-
+  useEffect(()=>{
+  const filterData = allCategory?.jewelery?.filter((item)=>
+  
+  )
+ },[])
   return (
     <div>
       <Header />

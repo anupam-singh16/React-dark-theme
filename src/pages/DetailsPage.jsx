@@ -37,7 +37,7 @@ const DetailsPage = () => {
         <Header />
       </div>
       {matchedData ? (
-        <section className="text-gray-700 body-font overflow-hidden bg-white">
+        <section className="text-gray-700 body-font overflow-hidden bg-white mt-[4.8%]">
           <div className="container px-5 py-7 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-wrap">
               <img
@@ -198,6 +198,7 @@ const DetailsPage = () => {
             height: "85vh",
             alignItems: "center",
             flexDirection: "column",
+            marginTop:"4.5%"
           }}
         >
           <Grid container wrap="nowrap">

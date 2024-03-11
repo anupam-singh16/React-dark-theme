@@ -44,7 +44,7 @@ const CartPage = () => {
   return (
     <body>
       <Header />
-      <div className="h-full pt-2">
+      <div className="h-full pt-[6.8%]">
         {allItem?.length > 0 && (
           <h1 className="mb-4 text-center text-2xl font-bold">Cart Items</h1>
         )}
